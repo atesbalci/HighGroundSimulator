@@ -4,6 +4,8 @@ namespace Game
 {
     public class Player : MonoBehaviour
     {
+        public Slash Slash;
+
         
     }
 }
