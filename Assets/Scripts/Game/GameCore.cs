@@ -1,9 +1,16 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Game
 {
     public class GameCore : MonoBehaviour
     {
-        public Player Player;
+        public ObiWan Player;
+        public Anakin Enemy;
+
+        private void Awake()
+        {
+            DOTween.Init();
+        }
     }
 }
