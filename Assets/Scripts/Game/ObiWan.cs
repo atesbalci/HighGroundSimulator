@@ -5,8 +5,10 @@ namespace Game
     public class ObiWan : MonoBehaviour
     {
         public Slash Slash;
+        public float MaxSlashDuration;
         
         private Plane _slashPlane;
+        private float _slashTimer;
 
         private void Start()
         {
@@ -15,7 +17,11 @@ namespace Game
 
         private void Update()
         {
-            Slash.Active = Input.GetKey(KeyCode.Mouse0);
+            if (!Slash.Active)
+            {
+                Slash.Active = Input.GetKeyDown(KeyCode.Mouse0) && Mathf.Approximately(0f, _slashTimer);
+            }
+            Slash.Active = Slash.Active && Input.GetKey(KeyCode.Mouse0) && _slashTimer < MaxSlashDuration;
             if (Slash.Active)
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -24,6 +30,15 @@ namespace Game
                 {
                     Slash.transform.position = ray.GetPoint(dist);
                 }
+                _slashTimer += Time.deltaTime;
+            }
+            else if(_slashTimer > 0f && Input.GetKey(KeyCode.Mouse0))
+            {
+                _slashTimer -= Time.deltaTime;
+            }
+            else
+            {
+                _slashTimer = 0f;
             }
         }
     }

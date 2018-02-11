@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
     [RequireComponent(typeof(TrailRenderer))]
     public class Slash : MonoBehaviour
     {
+        public Action<float> SlashEndAction;
         public bool Active
         {
             get { return _active; }
@@ -12,6 +14,7 @@ namespace Game
             {
                 if (_active == value)
                     return;
+                gameObject.SetActive(value);
                 if (value)
                 {
                     _distanceInside = -1f;
@@ -49,7 +52,10 @@ namespace Game
             {
                 _distanceInside += Vector3.Distance(transform.position, _prevPoint.Value);
             }
-            Debug.Log(_distanceInside);
+            if (SlashEndAction != null)
+            {
+                SlashEndAction(_distanceInside);
+            }
         }
     }
 }
