@@ -33,10 +33,10 @@ namespace Game
 
         private void Update()
         {
-            if (_curPath != null)
+            if (_curPath != null && !Mathf.Approximately(_curPath.Elapsed(), 0f))
             {
                 var nextPoint = _curPath.PathGetPoint(Mathf.Min(_curPath.ElapsedPercentage() + 0.01f, 1f));
-                transform.rotation = Quaternion.LookRotation(nextPoint - transform.position, Vector3.up);
+                transform.rotation = Quaternion.LookRotation(transform.position - nextPoint, Vector3.up);
                 transform.Rotate(Vector3.right, 90f);
             }
         }
