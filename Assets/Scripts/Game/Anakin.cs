@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Anakin : MonoBehaviour
-    {
+    public class Anakin : MonoBehaviour {
+        public float JumpDuration = 1f;
+
+        [Space(10)]
         public Transform HighPoint;
         public Transform Target;
 
@@ -23,7 +25,7 @@ namespace Game
         public void TryIt()
         {
             _curPath.Kill();
-            _curPath = transform.DOPath(new[] {HighPoint.position, Target.position}, 1f, PathType.CatmullRom)
+            _curPath = transform.DOPath(new[] {HighPoint.position, Target.position}, JumpDuration, PathType.CatmullRom)
                 .OnComplete(() => _curPath = null).OnKill(() => _curPath = null);
         }
 
