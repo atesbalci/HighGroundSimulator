@@ -27,7 +27,7 @@ namespace Game
         public void TryIt(float delay = 0f)
         {
             _curPath.Kill();
-            _curPath = transform.DOPath(new[] {HighPoint.position, Target.position}, 1f, PathType.CatmullRom)
+            _curPath = transform.DOPath(new[] {HighPoint.position, Target.position}, JumpDuration, PathType.CatmullRom)
                 .OnComplete(() => _curPath = null).OnKill(() => _curPath = null).SetDelay(delay);
         }
 
